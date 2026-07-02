@@ -63,7 +63,7 @@ A license-gated security module that consumes the code-intelligence knowledge gr
 - **IaC scanning** — Dockerfile, Kubernetes (workload-controller-aware pod checks) and Terraform rules
 - **Taint analysis (SAST)** — injection-class detection (SQL injection, command injection, code execution, path traversal, SSRF, unsafe deserialization) for Python and JS/TS: a language-independent propagation engine over **value-level data-flow edges**, a model database of 100+ sources/sinks/sanitizers, sanitizer-aware flow cutting and per-finding confidence scoring — an architecture in the Pysa class of taint engines
 - **Default-closed egress gate** — every outbound network access in the security module passes a triple-locked, default-closed gate; nothing leaves the machine unless explicitly unlocked
-- **Empirical calibration** — labeled in-house corpus (vulnerable/safe pairs per category and language) driving per-category precision/recall gates, so detection quality is measured, not asserted *(calibration pass in progress)*
+- **Empirical calibration** — measured on a 53-case labeled corpus (6 injection categories × Python & JS/TS, vulnerable/safe pairs): **per-category precision 1.0 / recall 1.0** at shipped thresholds, locked in as a regression gate — detection quality is measured, not asserted
 
 ## Design principles
 
@@ -76,7 +76,7 @@ A license-gated security module that consumes the code-intelligence knowledge gr
 
 - **490+** source modules · **3,800+** test functions
 - **98%** coverage on the MCP core
-- **12-language** code-intelligence engine ([architecture tour](https://github.com/murat-suer/code-intelligence))
+- **15-language** code-intelligence engine, 39 file types parsed ([architecture tour](https://github.com/murat-suer/code-intelligence))
 - Dogfooded daily: NovAiOS builds and audits itself
 
 ## Stack
