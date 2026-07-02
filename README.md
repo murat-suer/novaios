@@ -52,7 +52,18 @@ flowchart TB
 | **MCP core** | Own zero-dependency MCP server microkernel — registry, stdio transport, per-tool token budgets, security layer, stderr logging. 98% test coverage |
 | **Eval harness** | Hermetic evaluation runs: multi-agent memory-isolation measurement, flat-context proofs, secret-leak audits, threshold-gated reports |
 | **Orchestration** | Orchestrator + fresh-subagent dispatch with quality gates between stages — no context bleed between agents |
-| **Security layer** | Dependency/CVE, secrets, IaC and taint analysis passes over project code, wired into the pipeline as gates |
+| **Security analysis (NovaSec)** | License-gated security module built on the code-intelligence graph — secrets, dependency-CVE, IaC and taint analysis wired into the pipeline as gates (see below) |
+
+## Security analysis — NovaSec
+
+A license-gated security module that consumes the code-intelligence knowledge graph, so findings are grounded in resolved program structure rather than regex heuristics:
+
+- **Secrets detection** — pattern + entropy analysis over changed code
+- **Dependency-CVE audit** — in-house manifest parsers (pip / npm / Go) matched against an **offline OSV snapshot**; refresh is egress-gated, so the audit works fully air-gapped
+- **IaC scanning** — Dockerfile, Kubernetes (workload-controller-aware pod checks) and Terraform rules
+- **Taint analysis (SAST)** — injection-class detection (SQL injection, command injection, code execution, path traversal, SSRF, unsafe deserialization) for Python and JS/TS: a language-independent propagation engine over **value-level data-flow edges**, a model database of 100+ sources/sinks/sanitizers, sanitizer-aware flow cutting and per-finding confidence scoring — an architecture in the Pysa class of taint engines
+- **Default-closed egress gate** — every outbound network access in the security module passes a triple-locked, default-closed gate; nothing leaves the machine unless explicitly unlocked
+- **Empirical calibration** — labeled in-house corpus (vulnerable/safe pairs per category and language) driving per-category precision/recall gates, so detection quality is measured, not asserted *(calibration pass in progress)*
 
 ## Design principles
 
