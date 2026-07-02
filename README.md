@@ -74,7 +74,7 @@ A license-gated security module that consumes the code-intelligence knowledge gr
 
 ## By the numbers
 
-- **490+** source modules · **3,800+** test functions
+- **500+** source modules · **4,000+** test functions
 - **98%** coverage on the MCP core
 - **15-language** code-intelligence engine, 39 file types parsed ([architecture tour](https://github.com/murat-suer/code-intelligence))
 - Dogfooded daily: NovAiOS builds and audits itself
